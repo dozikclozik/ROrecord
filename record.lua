@@ -2,18 +2,12 @@ local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 
 ---
-local FPS = 60
----
-
----
 local onRecording = false
 ---
 
 ---
 local FRAMES = {}
 ---
-
-local posNow = tostring(character:GetPrimaryPartCFrame().p)
 
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "RORecord(CHEAT)"
@@ -49,22 +43,14 @@ end)
 
 game:GetService("RunService").RenderStepped:Connect(function()
 	if onRecording then
-	table.insert(FRAMES, character.PrimaryPart.CFrame)
+		table.insert(FRAMES, character:FindFirstChild("HumanoidRootPart").CFrame)
 	end
 end)
 
 play_button.MouseButton1Click:Connect(function()
---	for index, OneFrame in ipairs(FRAMES) do
-	--	task.wait()
-		--character:FindFirstChild("HumanoidRootPart").CFrame = OneFrame
---	end
-for i = #FRAMES, 1, -2 do
-	task.wait()
-	character.PrimaryPart.CFrame = FRAMES[i]
-end
+	for i = #FRAMES, 1, -2 do
+		task.wait()
+		character:FindFirstChild("HumanoidRootPart").CFrame = FRAMES[i]
+	end
 	table.clear(FRAMES)
 end)
-
-
-
-
